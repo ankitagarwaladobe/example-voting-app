@@ -1,0 +1,33 @@
+pipeline{
+    agent any 
+
+    tools{
+        nodejs 'NodeJS Plugin'
+    }
+    stages{
+        stage("one"){
+            steps{
+                echo "Building node app..."
+                dir("result"){
+                    sh 'npm install'
+                }
+                sleep 5 
+            }
+        }
+        stage("two"){
+            steps{
+                echo "Testing node app..."
+                 dir("result"){
+                    sh 'npm test'
+                }
+                sleep 3 
+            }
+        }
+    }
+    
+    post{
+        always{
+            echo "This pipeline run is completed.."
+        }
+    }
+}
