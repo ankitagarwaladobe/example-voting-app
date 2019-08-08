@@ -7,8 +7,7 @@ pipeline{
     stages{
         stage("build"){
             when{
-                changeset '**/result/**'
-                branch 'master'
+                changeset 'result/**'
             }
             steps{
                 echo "Building node app..."
@@ -20,8 +19,7 @@ pipeline{
         }
         stage("test"){
             when{
-                changeset '**/result/**'
-                branch 'master'
+                changeset 'result/**'
             }
             steps{
                 echo "Testing node app..."
