@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 class Worker {
   public static void main(String[] args) {
+    
     try {
       Jedis redis = connectToRedis("redis");
       Connection dbConn = connectToDB("db");
