@@ -1,11 +1,15 @@
-peline{
+pipeline{
     agent any 
 
     tools{
-        maven 'Maven 3.6.1'
+        maven 'maven 3.6.1'
     }
     stages{
-        stage("one"){
+        stage("build"){
+            when {
+                changeset '**/worker/**'
+                branch 'master'
+            }
             steps{
                 echo "Building worker app..."
                 dir("worker"){
@@ -14,7 +18,11 @@ peline{
                 sleep 5 
             }
         }
-        stage("two"){
+        stage("test"){
+            when {
+                changeset '**/worker/**'
+                branch 'master'
+            }
             steps{
                 echo "Testing worker app..."
                  dir("worker"){
@@ -23,7 +31,11 @@ peline{
                 sleep 3 
             }
         }
-        stage("three"){
+        stage("package"){
+            when {
+                changeset '**/worker/**'
+                branch 'master'
+            }
             steps{
                 echo "packaging worker app..."
                  dir("worker"){

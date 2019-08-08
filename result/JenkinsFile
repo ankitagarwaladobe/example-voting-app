@@ -1,0 +1,41 @@
+pipeline{
+    agent any 
+
+    tools{
+        nodejs 'NodeJS Plugin'
+    }
+    stages{
+        stage("build"){
+            when{
+                changeset '**/result/**'
+                branch 'master'
+            }
+            steps{
+                echo "Building node app..."
+                dir("result"){
+                    sh 'npm install'
+                }
+                sleep 5 
+            }
+        }
+        stage("test"){
+            when{
+                changeset '**/result/**'
+                branch 'master'
+            }
+            steps{
+                echo "Testing node app..."
+                 dir("result"){
+                    sh 'npm test'
+                }
+                sleep 3 
+            }
+        }
+    }
+    
+    post{
+        always{
+            echo "This pipeline run is completed.."
+        }
+    }
+}
