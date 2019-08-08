@@ -5,7 +5,11 @@ pipeline{
         nodejs 'NodeJS Plugin'
     }
     stages{
-        stage("one"){
+        stage("build"){
+            when{
+                changeset '**/result/**'
+                branch 'master'
+            }
             steps{
                 echo "Building node app..."
                 dir("result"){
@@ -14,7 +18,11 @@ pipeline{
                 sleep 5 
             }
         }
-        stage("two"){
+        stage("test"){
+            when{
+                changeset '**/result/**'
+                branch 'master'
+            }
             steps{
                 echo "Testing node app..."
                  dir("result"){
